@@ -32,6 +32,10 @@ module KakaoBot
     config.time_zone = 'Seoul'
     config.active_record.default_timezone = :utc
     # config.eager_load_paths << Rails.root.join("extras")
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
