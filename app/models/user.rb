@@ -6,5 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
+  has_many :user_clients
+  has_many :clients, through: :user_clients
+
   validates :name, presence: true, uniqueness: true
 end
