@@ -4,7 +4,7 @@ require 'devise/jwt/test_helpers'
 RSpec.describe '/clients', type: :request do
   before(:each) do
     @user = FactoryBot.create(:user)
-    @client = FactoryBot.create(:client)
+    @client = FactoryBot.create(:client, user_clients_attributes: [{ user: @user }])
 
     @headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
     @auth_headers = Devise::JWT::TestHelpers.auth_headers(@headers, @user)
@@ -70,7 +70,10 @@ RSpec.describe '/clients', type: :request do
     context 'with valid parameters' do
       it 'creates a new Client' do
         post clients_url, params: { client: valid_attributes }, headers: @auth_headers, as: :json
+        client = Client.find JSON.parse(response.body)['id']
+
         expect(response).to have_http_status(:created)
+        expect(client.user_clients.size).to eql 1
       end
     end
 
@@ -101,6 +104,7 @@ RSpec.describe '/clients', type: :request do
         uuid = @client.uuid
         access_token = @client.access_token
         refresh_token = @client.refresh_token
+        user_client_count = @client.user_clients.size
 
         patch client_url(@client), params: { client: new_attributes }, headers: @auth_headers, as: :json
         @client.reload
@@ -109,6 +113,7 @@ RSpec.describe '/clients', type: :request do
         expect(JSON.parse(response.body)['uuid']).not_to eql uuid
         expect(JSON.parse(response.body)['access_token']).not_to eql access_token
         expect(JSON.parse(response.body)['refresh_token']).not_to eql refresh_token
+        expect(user_client_count).to eql @client.user_clients.size
       end
     end
 

@@ -39,7 +39,8 @@ class ClientsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def client_params
+    defaults = { user_clients_attributes: [{ client: @client.presence, user: current_user }] }
     params.require(:client).permit(:name, :email, :password, :phone, :uuid, :client_id,
-                                   :access_token, :refresh_token)
+                                   :access_token, :refresh_token).reverse_merge(defaults)
   end
 end
