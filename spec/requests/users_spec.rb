@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
+RSpec.describe "/users", type: :request do
   before(:each) do
     @password = 'qwer1234'
     @user = FactoryBot.create(:user, password: @password)

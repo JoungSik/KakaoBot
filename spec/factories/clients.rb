@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :client do
     name { "JoungSik-Desktop" }
     email { "example@example.com" }
-    phone { "+82-10-3021-1717" }
+    phone { "+82-10-1234-5678" }
     password { 'qwer1234' }
     uuid { 'a2FrYW9ib3Qgc2VydmVyIHByb2plY3QgZGV2aWNlIG5hbWU=' }
     access_token { '5j1ppbl1ofxseq5eblxlovzxd8y7gqhs9vufcx379tmxq7x69k1bw6oifsov' }

@@ -33,7 +33,7 @@ module KakaoBot
     config.active_record.default_timezone = :utc
     # config.eager_load_paths << Rails.root.join("extras")
     config.generators do |g|
-      g.test_framework :rspec, fixture: true
+      g.test_framework :rspec, fixture: true, routing_specs: false
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
