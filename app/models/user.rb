@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :user_clients
   has_many :clients, through: :user_clients
+  has_many :rooms, through: :clients
 
   validates :name, presence: true, uniqueness: true
 end
