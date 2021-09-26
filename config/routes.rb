@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :clients
   resources :rooms
   resources :fortunes, only: :index
+  resources :foods, only: :index
 end
