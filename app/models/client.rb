@@ -1,4 +1,6 @@
 class Client < ApplicationRecord
+  has_many :rooms
+  
   has_many :user_clients, dependent: :delete_all
   has_many :users, through: :user_clients
 
