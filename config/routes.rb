@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :rooms
   resources :fortunes, only: :index
   resources :foods, only: :index
+  resources :members
+  resources :member_attendances, only: [:index, :show, :create]
 end

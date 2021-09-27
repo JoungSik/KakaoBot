@@ -24,7 +24,7 @@ RSpec.describe MemberAttendance, type: :model do
 
   describe 'create' do
     it 'member has many attendances' do
-      member_attendance = MemberAttendance.create({ member: @member, due_date: '2021-09-27' })
+      member_attendance = MemberAttendance.create({ member: @member, due_date: @member_attendance.due_date + 1.days })
       expect(@member.attendances).to include member_attendance
     end
   end
