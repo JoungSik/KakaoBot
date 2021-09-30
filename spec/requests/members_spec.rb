@@ -42,12 +42,12 @@ RSpec.describe "/members", type: :request do
 
   describe "GET /show" do
     it 'authentication' do
-      get member_url(@member), as: :json
+      get member_url(@member.chat_id), as: :json
       expect(response).to have_http_status(:unauthorized)
     end
 
     it "renders a successful response" do
-      get member_url(@member), headers: @auth_headers, as: :json
+      get member_url(@member.chat_id), headers: @auth_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -75,7 +75,7 @@ RSpec.describe "/members", type: :request do
 
   describe "PATCH /update" do
     it 'authentication' do
-      patch member_url(@member), as: :json
+      patch member_url(@member.chat_id), as: :json
       expect(response).to have_http_status(:unauthorized)
     end
 
@@ -89,7 +89,7 @@ RSpec.describe "/members", type: :request do
       it "updates the requested member" do
         name = @member.name
 
-        patch member_url(@member), params: new_attributes, headers: @auth_headers, as: :json
+        patch member_url(@member.chat_id), params: new_attributes, headers: @auth_headers, as: :json
         @member.reload
 
         expect(JSON.parse(response.body)['name']).not_to eql name
@@ -101,7 +101,7 @@ RSpec.describe "/members", type: :request do
       it "renders a JSON response with errors for the member" do
         room = Room.find_by_channel_id valid_attributes[:channel_id]
         member = Member.create! valid_attributes.except!(:channel_id).reverse_merge(room: room)
-        patch member_url(member), params: invalid_attributes, headers: @auth_headers, as: :json
+        patch member_url(member.chat_id), params: invalid_attributes, headers: @auth_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe "/members", type: :request do
   describe "DELETE /destroy" do
     it "destroys the requested member" do
       expect {
-        delete member_url(@member), headers: @auth_headers, as: :json
+        delete member_url(@member.chat_id), headers: @auth_headers, as: :json
       }.to change(Member, :count).by(-1)
     end
   end
