@@ -19,4 +19,4 @@ ENV RAILS_MASTER_KEY $MASTER_KEY
 COPY . /workspace
 
 EXPOSE 3000
-CMD ["bundle", "puma", "-C", "config/puma.rb"]
+CMD ["/bin/sh", "bundle", "exec", "puma", "-C", "config/puma.rb"]
