@@ -5,5 +5,5 @@ class BanKeyword < ApplicationRecord
   validates :word, presence: true, uniqueness: { scope: :room }
   validates :category, presence: true
 
-  enum category: { link: 0¬ }
+  enum category: { link: 0 }
 end
