@@ -5,6 +5,8 @@ class Room < ApplicationRecord
   has_many :member_attendances, -> { where(due_date: Date.today).order(created_at: :asc) },
            through: :members, source: :attendances
 
+  has_many :ban_keywords
+
   validates_presence_of :name, :channel_id, :channel_type
   validates_uniqueness_of :name, :channel_id
 end
