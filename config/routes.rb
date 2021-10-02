@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :foods, only: :index
   resources :members
   resources :member_attendances, only: [:index, :show, :create]
+  resources :ban_keywords, only: :index
 end

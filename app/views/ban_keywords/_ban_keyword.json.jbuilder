@@ -1,0 +1,1 @@
+json.extract! ban_keyword, :id, :category, :name, :word, :created_at, :updated_at
