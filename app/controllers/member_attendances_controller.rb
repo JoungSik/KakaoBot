@@ -4,7 +4,7 @@ class MemberAttendancesController < ApplicationController
   before_action :set_member_attendance, only: %i[ show update destroy ]
 
   def index
-    @room = Room.find params[:room_id]
+    @room = Room.find_by_channel_id params[:channel_id]
     @member_attendances = @room.member_attendances
   end
 
