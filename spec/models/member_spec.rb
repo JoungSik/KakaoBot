@@ -29,4 +29,21 @@ RSpec.describe Member, type: :model do
       expect(@room.members).to include member
     end
   end
+
+  describe 'delete' do
+    it 'member delete to member attendances' do
+      member = Member.create({ room: @room, name: @member.name, chat_id: '9876543210987654321' })
+
+      MemberAttendance.create({ member: member, due_date: Date.today })
+      MemberAttendance.create({ member: member, due_date: Date.today + 1.days })
+      MemberAttendance.create({ member: member, due_date: Date.today + 2.days })
+
+      expect(MemberAttendance.where(member_id: member.id).size).to eql 3
+
+      member_id = member.id
+      member.destroy
+
+      expect(MemberAttendance.where(member_id: member_id).size).to eql 0
+    end
+  end
 end
