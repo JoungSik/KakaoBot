@@ -2,7 +2,11 @@ class Room < ApplicationRecord
   belongs_to :client
 
   has_many :members
-  has_many :member_attendances, -> { where(due_date: Date.today).order(created_at: :asc) },
+  has_many :member_attendances,
+           -> {
+             select('ROW_NUMBER() OVER(ORDER BY member_attendances.created_at ASC) as order, name, member_attendances.*')
+               .where(due_date: Date.today).order(created_at: :asc)
+           },
            through: :members, source: :attendances
 
   has_many :ban_keywords
