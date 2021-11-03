@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :client
 
+  has_many :notice
   has_many :members
   has_many :member_attendances,
            -> {
