@@ -1,7 +1,9 @@
 class Room < ApplicationRecord
   belongs_to :client
 
-  has_many :notice
+  has_many :notices
+  accepts_nested_attributes_for :notices, allow_destroy: true
+
   has_many :members
   has_many :member_attendances,
            -> {
